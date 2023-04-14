@@ -7,6 +7,8 @@ class User < ApplicationRecord
   before_save :downcase_email
 
   validates :email, format: {with: URI::MailTo::EMAIL_REGEXP} ,presence: true, uniqueness: true
+  validates :phone_number, presence: true, format: { with: /\A\d{10}\z/, message: "must be 10 digits" }
+  
 
   MAILER_FROM_EMAIL = "no-reply@example.com"
 
