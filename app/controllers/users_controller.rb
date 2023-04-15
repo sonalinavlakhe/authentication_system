@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to root_path, notice: "Please check your email for confirmation instructions."
     else
-      render :new, status: :unprocessable_entity
+      redirect_to sign_up_path, danger: @user.errors.full_messages.join(", ")
     end
   end
 
