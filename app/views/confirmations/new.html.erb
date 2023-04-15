@@ -1,4 +1,9 @@
-<% form_with model: @user, url: confirmations_path do |form| %>
-  <%= form.email_field :email, required: true %>
-  <%= form.submit "Confirm Email" %>
+<% form_with model: @user, class: "ml-3 mr-3", url: confirmations_path do |form| %>
+  <div class="mb-3">
+    <%= form.label :email %>
+    <%= form.email_field :email,class: "form-control", required: true %>
+  </div>
+  <div class="btn btn-info">
+    <%= form.submit "Confirm Email" %>
+  </div>
 <% end %>
