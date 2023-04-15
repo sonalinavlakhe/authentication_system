@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      @user.send_confirmation_email!
       redirect_to root_path, notice: "Please check your email for confirmation instructions."
     else
       redirect_to sign_up_path, danger: @user.errors.full_messages.join(", ")
