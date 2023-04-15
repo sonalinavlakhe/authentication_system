@@ -1,6 +1,6 @@
 <h1> Sign Up </h1>
 
-<%= form_with model: @user, local: true, class: "ml-3 mr-3", url: sign_up_path do |form| %>
+<%= form_with model: @user, local: true, class: "ml-3 mr-3", authenticity_token: true, url: sign_up_path do |form| %>
   <div class="mb-3">
     <%= form.label :name %>
     <%= form.text_field :name, class: "form-control", required: true %>
