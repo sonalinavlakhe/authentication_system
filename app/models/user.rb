@@ -10,7 +10,7 @@ class User < ApplicationRecord
   validates :phone_number, presence: true, format: { with: /\A\d{10}\z/, message: "must be 10 digits" }
   
 
-  MAILER_FROM_EMAIL = "no-reply@example.com"
+  MAILER_FROM_EMAIL = "sonalibhavsar977@gmail.com"
 
   def confirmed?
     confirmed_at.present?
@@ -21,11 +21,12 @@ class User < ApplicationRecord
   end
 
   def generate_confirmation_token
-    signed_id expires_in: CONFIRMATION_TOKEN_EXPIRATION, purpose: :confirm_email
+    signed_id = Rails.application.message_verifier(:email_confirmation).generate(self.id, expires_in: CONFIRMATION_TOKEN_EXPIRATION, purpose: :confirm_email)
+    signed_id
   end
 
   def confirm!
-    update_column(confirmed_at: Time.current)
+    update_column(:confirmed_at, Time.current)
   end
 
   def send_confirmation_email!
