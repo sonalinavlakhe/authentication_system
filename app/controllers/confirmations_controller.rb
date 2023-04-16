@@ -11,7 +11,9 @@ class ConfirmationsController < ApplicationController
   end
 
   def edit
-   @user = User.find(Rails.application.message_verifier(:email_confirmation).verify(params[:confirmation_token], purpose: :confirm_email))
+    verifier = Rails.application.message_verifier(Rails.application.secret_key_base)
+    user_id = verifier.verify(params[:confirmation_token])[:id]
+    @user = User.find(user_id)
     if @user.present?
       @user.confirm!
       redirect_to root_path, notice: "Your account has been confirmed."

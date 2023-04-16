@@ -21,7 +21,9 @@ class User < ApplicationRecord
   end
 
   def generate_confirmation_token
-    signed_id = Rails.application.message_verifier(:email_confirmation).generate(self.id, expires_in: CONFIRMATION_TOKEN_EXPIRATION, purpose: :confirm_email)
+    verifier = Rails.application.message_verifier(Rails.application.secret_key_base)
+    signed_id = verifier.generate({id: self.id, purpose: :confirm_email}, expires_in: CONFIRMATION_TOKEN_EXPIRATION)
+
     signed_id
   end
 
