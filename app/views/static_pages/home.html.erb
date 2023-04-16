@@ -1,4 +1,5 @@
 <h2 class="mt-5">Welcome to the Application</h2>
 <p class="lead">Please register or sign in to continue</p>
 <%= link_to "Sign Up", sign_up_path, class: "btn btn-info"%>
-<%#= link_to "Login", new_user_session_path, class: "btn btn-secondary"%>
+<%= link_to "Login", login_path, class: "btn btn-secondary"%>
+<%= link_to "Logout", logout_path, method: :delete, class: "btn btn-secondary"%>
