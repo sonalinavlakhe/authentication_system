@@ -1,11 +1,11 @@
 <h1> Sign Up </h1>
 
 <%= form_with model: @user, local: true, class: "ml-3 mr-3", authenticity_token: true, url: sign_up_path do |form| %>
-  <div class="mb-3">
+  <div class="form-group">
     <%= form.label :name %>
     <%= form.text_field :name, class: "form-control", required: true %>
   </div>
-  <div class="mb-3">
+  <div class="form-group">
     <%= form.label :email %>
     <%= form.email_field :email,class: "form-control", required: true %>
   </div>
@@ -22,6 +22,6 @@
     <%= form.text_field :phone_number, class: "form-control"%>
   </div>
   <div class="btn btn-info">
-    <%= form.submit "Sign Up" %>
+    <%= button_tag "Sign Up", type: :submit, class: "btn btn-info" %>
   </div>
 <% end %>
