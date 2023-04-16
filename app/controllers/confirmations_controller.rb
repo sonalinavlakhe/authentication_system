@@ -14,11 +14,11 @@ class ConfirmationsController < ApplicationController
   def edit
     verifier = Rails.application.message_verifier(Rails.application.secret_key_base)
     user_id = verifier.verify(params[:confirmation_token])[:id]
-    @user = User.find(user_id)
+    @user = User.find_by(id: user_id)
     if @user.present?
       @user.confirm!
       login @user
-      redirect_to root_path, notice: "Your account has been confirmed."
+      redirect_to root_path, notice: "Your account has been confirmed.. you have logged in successfully"
     else
       redirect_to new_confirmation_path, alert: "Invalid token."
     end
