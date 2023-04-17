@@ -1,5 +1,6 @@
 <h2 class="mt-5">Welcome to the Application</h2>
 <% if current_user %>
+  <%= link_to "Reset Password", new_password_path, class: "btn btn-info"%>
   <%= link_to "Logout", logout_path, method: :delete, class: "btn btn-secondary"%>
 <% else %> 
   <p class="lead">Please register or sign in to continue</p>
