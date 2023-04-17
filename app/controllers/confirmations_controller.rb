@@ -17,8 +17,7 @@ class ConfirmationsController < ApplicationController
     @user = User.find_by(id: user_id)
     if @user.present?
       @user.confirm!
-      login @user
-      redirect_to root_path, notice: "Your account has been confirmed.. you have logged in successfully"
+      redirect_to root_path, notice: "Your account has been confirmed."
     else
       redirect_to new_confirmation_path, alert: "Invalid token."
     end
