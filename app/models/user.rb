@@ -4,6 +4,8 @@ class User < ApplicationRecord
   PASSWORD_RESET_TOKEN_EXPIRATION = 10.minutes
 
   has_secure_password
+
+  has_secure_token :remember_token
   
   before_save :downcase_email
 
