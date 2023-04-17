@@ -5,9 +5,15 @@
     <%= form.label :email %>
     <%= form.email_field :email, class: "form-control", required: true %>
   </div>
-  <div class= "form-group">
+  <div class="form-group">
     <%= form.label :password %>
     <%= form.password_field :password, class: "form-control", required: true %>
+  </div>
+  <div class="form-group">
+    <div class="form-check-inline">
+      <%= form.check_box :remember_me, class: "form-check-input"%>
+      <%= form.label :remember_me, class: "form-check-label"%>     
+    </div>
   </div>
   <%= button_tag "Login", type: :submit, class: "btn btn-info"%>
 <% end %>
