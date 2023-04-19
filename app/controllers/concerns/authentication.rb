@@ -25,7 +25,6 @@ module Authentication
 
   def forget(user)
     cookies.delete :remember_token
-    user.regenerate_remember_token
   end
 
   def redirect_if_authenticated
