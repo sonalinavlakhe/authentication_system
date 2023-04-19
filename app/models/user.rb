@@ -8,6 +8,8 @@ class User < ApplicationRecord
   has_secure_token :remember_token
   
   before_save :downcase_email
+  before_save :set_phone_attributes
+  after_save :send_sms_for_phone_verification
 
   validates :email, format: {with: URI::MailTo::EMAIL_REGEXP} ,presence: true, uniqueness: true
   validates :phone_number, presence: true, format: { with: /\A\d{10}\z/, message: "must be 10 digits" }, uniqueness: true
@@ -25,6 +27,11 @@ class User < ApplicationRecord
   
   def confirm!
     update_column(:confirmed_at, Time.current)
+  end
+
+  def mark_phone_as_verified!
+     update_column(:phone_verified, true)
+     update_column(:phone_verification_code, nil)
   end
 
   def generate_password_reset_token
@@ -53,5 +60,23 @@ class User < ApplicationRecord
 
   def downcase_email
     self.email = email.downcase
+  end
+
+  def set_phone_attributes
+    self.phone_verified = false
+    self.phone_verification_code = generate_phone_verification_code
+  end
+
+  def generate_phone_verification_code
+    begin
+     verification_code = SecureRandom.hex(3)
+    end while self.class.exists?(phone_verification_code: verification_code)
+
+    verification_code
+  end
+
+
+  def send_sms_for_phone_verification
+    PhoneVerification.new(user_id: id).process
   end
 end
