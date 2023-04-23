@@ -1,5 +1,4 @@
 class SessionsController < ApplicationController
-  before_action :redirect_if_authenticated, only: [:create, :new]
 
   def create
     @user = User.find_by(email: params[:user][:email].downcase)
@@ -30,6 +29,6 @@ class SessionsController < ApplicationController
   def destroy
     forget(current_user)
     logout
-    redirect_to root_path, notice: "Signed out."
+    redirect_to root_path, notice: "You have successfully Signed out"
   end
 end
