@@ -8,8 +8,8 @@ class User < ApplicationRecord
   has_secure_token :remember_token
   
   before_save :downcase_email
-  before_save :set_phone_attributes
-  after_save :send_sms_for_phone_verification
+  before_create :set_phone_attributes
+  after_create :send_sms_for_phone_verification
 
   validates :email, format: {with: URI::MailTo::EMAIL_REGEXP} ,presence: true, uniqueness: true
   validates :phone_number, presence: true, format: { with: /\A\d{10}\z/, message: "must be 10 digits" }, uniqueness: true
