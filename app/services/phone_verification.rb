@@ -20,8 +20,7 @@ class PhoneVerification
   end
 
   def body
-    "Please enter this code '#{user.phone_verification_code}' to
-    verify your phone number on application"
+    "Please enter this code '#{user.phone_verification_code}' to verify your phone number on application"
   end
 
   def twilio_client
