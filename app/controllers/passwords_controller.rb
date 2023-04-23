@@ -28,8 +28,7 @@ class PasswordsController < ApplicationController
       if @user.unconfirmed?
         redirect_to new_confirmation_path, alert: "You must confirm your email before you can sign in."
       elsif @user.update(password_params)
-        redirect_to login_path, notice: "Sign in with new updated password"
-        return
+        redirect_to login_path, notice: "Password updated successfully"
       else      
         flash.now[:alert] = @user.errors.full_messages.to_sentence
         render :edit, status: :unprocessable_entity  
