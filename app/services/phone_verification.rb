@@ -31,7 +31,6 @@ class PhoneVerification
 
   def send_sms
     Rails.logger.info "SMS: From: #{from} To: #{to} Body: \"#{body}\""
-
     twilio_client.messages.create(
       from: from,
       to: to,

@@ -9,7 +9,6 @@ class User < ApplicationRecord
   
   before_save :downcase_email
   before_create :set_phone_attributes
-  after_create :send_sms_for_phone_verification
 
   validates :email, format: {with: URI::MailTo::EMAIL_REGEXP} ,presence: true, uniqueness: true
   validates :phone_number, presence: true, format: { with: /\A\d{10}\z/, message: "must be 10 digits" }, uniqueness: true
@@ -53,7 +52,7 @@ class User < ApplicationRecord
 
   def send_confirmation_email!
     confirmation_token = generate_confirmation_token
-    UserMailer.confirmation(self, confirmation_token).deliver_now
+    UserMailer.confirmation(self, confirmation_token).deliver_later
   end
   
   private
@@ -75,8 +74,4 @@ class User < ApplicationRecord
     verification_code
   end
 
-
-  def send_sms_for_phone_verification
-    PhoneVerification.new(user_id: id).process
-  end
 end

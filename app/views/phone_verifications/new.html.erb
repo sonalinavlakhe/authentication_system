@@ -1,6 +1,6 @@
 <h1>Enter verification code</h1>
-
-<%= form_with class: "ml-3 mr-3", url: phone_verifications_path, local: true, model: @user do |form| %>
+<%= form_with class: "ml-3 mr-3", url: phone_verifications_path, method: :post, local: true, model: @user do |form| %>
+  <%= form.hidden_field :remember_me, value: params[:user][:remember_me] %>
   <div class="form-group">
     <%= form.label :code, "Verification code:" %>
     <%= form.text_field :code,class: "form-control", required: true %>

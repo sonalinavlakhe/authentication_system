@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
 
   resources :phone_verifications, only: [:create, :new]
+
   resources :confirmations, only: [:create, :new, :edit], param: :confirmation_token
   resources :passwords, only: [:create, :edit, :new, :update], param: :password_reset_token
 end

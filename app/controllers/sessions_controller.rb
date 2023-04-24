@@ -4,14 +4,16 @@ class SessionsController < ApplicationController
     @user = User.find_by(email: params[:user][:email].downcase)
     if @user
       if @user.unconfirmed?
-        redirect_to new_confirmation_path, alert: " email is not confirmed yet confirm it by re-entering"
+        redirect_to new_confirmation_path, alert: " email is not verified yet please confirm email by re-entering"
       elsif @user.authenticate(params[:user][:password])
-        login @user
-        remember(@user) if params[:user][:remember_me] == "1"
         if @user.phone_verified?
+          login @user
+          remember(@user) if params[:user][:remember_me] == "1"
           redirect_to root_path, notice: "You have successfully logged in."
         else
-          redirect_to new_phone_verification_path, notice: "Please enter the verification code we sent to your number #{@user.phone_number}."
+          send_sms_for_phone_verification(@user.id)
+          flash.now[:alert] = "Please enter the verification code we sent to your number #{@user.phone_number}."
+          render 'phone_verifications/new', remember_me: params[:user][:remember_me], notice: "Please enter the verification code we sent to your number #{@user.phone_number}."
         end
       else
         flash.now[:alert] = "Incorrect email or password."
@@ -30,5 +32,12 @@ class SessionsController < ApplicationController
     forget(current_user)
     logout
     redirect_to root_path, notice: "You have successfully Signed out"
+  end
+
+
+  private
+
+  def send_sms_for_phone_verification(id)
+    PhoneVerification.new(user_id: id).process
   end
 end
