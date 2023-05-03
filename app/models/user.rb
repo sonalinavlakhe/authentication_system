@@ -10,9 +10,8 @@ class User < ApplicationRecord
   before_save :downcase_email
   before_create :set_phone_attributes
 
-  validates :email, format: {with: URI::MailTo::EMAIL_REGEXP} ,presence: true, uniqueness: true
+  validates :email, format: {with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i} ,presence: true, uniqueness: true
   validates :phone_number, presence: true, format: { with: /\A\d{10}\z/, message: "must be 10 digits" }, uniqueness: true
-  
 
   MAILER_FROM_EMAIL = "sonalibhavsar977@gmail.com"
 
@@ -52,7 +51,7 @@ class User < ApplicationRecord
 
   def send_confirmation_email!
     confirmation_token = generate_confirmation_token
-    UserMailer.confirmation(self, confirmation_token).deliver_later
+    UserMailer.confirmation(self, confirmation_token).deliver_now
   end
   
   private

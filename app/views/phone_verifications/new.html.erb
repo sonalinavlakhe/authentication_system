@@ -1,9 +1,25 @@
-<h1>Enter verification code</h1>
-<%= form_with class: "ml-3 mr-3", url: phone_verifications_path, method: :post, local: true, model: @user do |form| %>
-  <%= form.hidden_field :remember_me, value: params[:user][:remember_me] %>
-  <div class="form-group">
-    <%= form.label :code, "Verification code:" %>
-    <%= form.text_field :code,class: "form-control", required: true %>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h1 class="text-center">Enter Verification Code</h1>
+        </div>
+        <div class="card-body">
+          <%= form_with class: "ml-3 mr-3", url: phone_verifications_path, method: :post, local: true, model: @user do |form| %>
+            <%= form.hidden_field :remember_me, value: @remember_me %>
+            <%= form.hidden_field :email, value: @user.email %>
+            <div class="form-group">
+              <%= form.label :verification_code, "Verification code:" %>
+              <%= form.text_field :verification_code, class: "form-control", required: true %>
+            </div>
+            <%= button_tag "Verify Code", type: :submit, class: "btn btn-primary btn-block"  %>
+          <% end %>
+          <p class="mt-3 text-center">
+            Didn't receive the code? <%= link_to "Resend", resend_phone_verification_code_path(email: @user.email, remember_me: @remember_me), method: :post, class: "btn btn-link" %>
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
-  <%= button_tag "Verify Code", type: :submit, class: "btn btn-info"  %>
-<% end %>
+</div>

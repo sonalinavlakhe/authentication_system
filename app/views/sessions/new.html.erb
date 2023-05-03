@@ -1,19 +1,30 @@
-<h2>Login</h2>
-
-<%=form_with scope: :user, class: "ml-3 mr-3", url: login_path, local: true  do |form|%>
-  <div class="form-group">
-    <%= form.label :email %>
-    <%= form.email_field :email, class: "form-control", required: true %>
-  </div>
-  <div class="form-group">
-    <%= form.label :password %>
-    <%= form.password_field :password, class: "form-control", required: true %>
-  </div>
-  <div class="form-group">
-    <div class="form-check-inline">
-      <%= form.check_box :remember_me, class: "form-check-input"%>
-      <%= form.label :remember_me, class: "form-check-label"%>     
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h1 class="text-center">Login</h1>
+        </div>
+        <div class="card-body">
+          <%=form_with scope: :user, class: "ml-3 mr-3", url: login_path, local: true  do |form|%>
+            <div class="form-group">
+              <%= form.label :email %>
+              <%= form.email_field :email, class: "form-control", required: true %>
+            </div>
+            <div class="form-group">
+              <%= form.label :password %>
+              <%= form.password_field :password, class: "form-control", required: true %>
+            </div>
+            <div class="form-group">
+              <div class="form-check-inline">
+                <%= form.check_box :remember_me, class: "form-check-input"%>
+                <%= form.label :remember_me, class: "form-check-label"%>     
+              </div>
+            </div>
+            <%= button_tag "Login", type: :submit, class: "btn btn-primary btn-block"%>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
-  <%= button_tag "Login", type: :submit, class: "btn btn-info"%>
-<% end %>
+</div>

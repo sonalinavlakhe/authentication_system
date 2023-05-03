@@ -1,12 +1,13 @@
 class ConfirmationsController < ApplicationController
   
   def create
-    @user = User.find_by(email: params[:user][:email].downcase)
+    @user = User.find_by(email: params[:email].downcase)
     if @user.present? && @user.unconfirmed?
       @user.send_confirmation_email!
-      redirect_to root_path, notice: "Check your email for confirmation instructions."
+      redirect_to root_path, notice: t(:check_confirmation_instruction_sent_on_email)
     else
-      redirect_to new_confirmation_path, alert: "We could not find a user with that email or that email has already been confirmed."
+      @user = nil
+      redirect_to new_confirmation_path(email: params[:email]), alert: t(:user_not_present_or_confirmed)
     end
   end
 
@@ -16,13 +17,16 @@ class ConfirmationsController < ApplicationController
     @user = User.find_by(id: user_id)
     if @user.present?
       @user.confirm!
-      redirect_to root_path, notice: "Your account has been confirmed."
+      redirect_to root_path, notice: t(:account_confirmed)
     else
-      redirect_to new_confirmation_path, alert: "Invalid token."
+      redirect_to new_confirmation_path, alert: t(:invalid_token)
     end
+
+    rescue ActiveSupport::MessageVerifier::InvalidSignature
+      redirect_to new_confirmation_path, alert: t(:invalid_token)
   end
 
   def new
-    @user = User.new
+    @user = User.find_by(email: params[:email])
   end
 end

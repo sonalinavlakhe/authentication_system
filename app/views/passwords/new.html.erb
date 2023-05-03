@@ -1,9 +1,11 @@
 <h1>Reset Password</h1>
-
+<div class="alert alert-info">
+  <h8>To reset password, link will be sent to the registered email id</h8>
+</div>
 <%= form_with class: "ml-3 mr-3", url: passwords_path, local: true, scope: :user do |form| %>
   <div class="form-group">
     <%= form.label :email %>
-    <%= form.email_field :email,class: "form-control", required: true %>
+    <%= form.email_field :email,class: "form-control", required: true , placeholder: @user.email%>
   </div>
   <%= button_tag "Reset Password", type: :submit, class: "btn btn-info"  %>
 <% end %>

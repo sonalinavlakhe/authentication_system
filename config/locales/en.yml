@@ -29,5 +29,18 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
+
 en:
-  hello: "Hello world"
+  check_confirmation_instruction_sent_on_email: "Please check your email for confirmation instructions."
+  user_not_present_or_confirmed: "We could not find a user with that email or that email has already been confirmed."
+  account_confirmed: "Your account has been confirmed."
+  invalid_token: "Link is expired try to sent link again"
+  reset_password_confirmation_instruction_sent: "Please follow instructions in email to reset password"
+  user_not_present: "User not exists with this email id"
+  password_updated_successfully: "Password updated successfully"
+  login_successfully: "You have successfully logged in."
+  invalid_code_enter_again: "Mobile verification is pending due to Invalid verification code try to enter again"
+  email_not_verified_enter_again: "email is not verified yet please confirm email"
+  incorrect_email_or_password: "Incorrect email or password."
+  logout_successfully: "You have successfully Logout"
+  enter_verification_code_sent: "Please enter the verification code we sent to your number %{phone_number}."

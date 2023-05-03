@@ -1,4 +1,4 @@
-class PhoneVerification
+class PhoneVerificationService
 
   attr_reader :user
 
